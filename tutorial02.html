@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+음
+<ol>
+    <!-- todo-item 컴포넌트의 인스턴스 만들기 -->
+    <todo-item></todo-item>
+</ol>
+
+
+<div id="app-7">
+    <ol>
+        <!--
+          이제 각 todo-item 에 todo 객체를 제공합니다.
+          화면에 나오므로, 각 항목의 컨텐츠는 동적으로 바뀔 수 있습니다.
+          또한 각 구성 요소에 "키"를 제공해야합니다 (나중에 설명 됨).
+         -->
+        <todo-item
+                v-for="item in groceryList"
+                v-bind:todo="item"
+                v-bind:key="item.id">
+        </todo-item>
+    </ol>
+</div>
+
+
+<hr>
+
+<h1>app-8</h1>
+
+<div id="app-8">
+    <p>Using mustaches: {{ rawHtml }}</p>
+    <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+</div>
+
+
+<hr>
+
+<div id="app-9">
+    <p v-if="seen">이제 나를 볼 수 있어요</p>
+</div>
+
+<hr>
+<h1>전달인자 v-bind:href="변수" , v-on:click="methods:함수명"</h1>
+<div id="app-10">
+    <a v-bind:href="url" target="_blank">네이버 이동</a>
+    <br>
+    <button v-on:click="doSomething">버튼 클릭</button>
+</div>
+
+<hr>
+
+<div>
+    v-bind 는 : 로 약어 가능 ( ex:: v-bind:href 는 :href 로 ) <br>
+    v-on:click은 @click 으로 대체 가능
+</div>
+
+<hr>
+
+<div>
+    computed 는 뷰에 데이터를 보여줄 때 가공해서 보여주기 위함
+    methods의 functions들은 이벤트등을 처리할 때 사용
+</div>
+
+
+<hr>
+
+<div id="demo">{{ fullName }}</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    Vue.component('todo-item', {
+        props: ['todo'],
+        template: '<li>{{ todo.text }}</li>'
+    })
+
+    var app7 = new Vue({
+        el: '#app-7',
+        data: {
+            groceryList: [
+                { id: 0, text: 'Vegetables' },
+                { id: 1, text: 'Cheese' },
+                { id: 2, text: 'Whatever else humans are supposed to eat' }
+            ]
+        }
+    })
+
+    let app8 = new Vue({
+        el: '#app-8',
+        data:{
+            rawHtml : '<span style="color:red"> this should be red.</span>'
+        }
+    })
+
+    let app9 = new Vue({
+        el: '#app-9',
+        data:{
+            seen : true
+        }
+    })
+
+    let app10 = new Vue({
+        el: '#app-10',
+        data:{
+            url : "http://www.naver.com"
+        },
+        methods:{
+            doSomething : ()=> alert("두 섬딩...")
+        }
+    })
+
+    var vm = new Vue({
+        el: '#demo',
+        data: {
+            firstName: 'Foo',
+            lastName: 'Bar',
+            fullName: 'Foo Bar'
+        },
+        computed: {
+            fullName: function () {
+                return this.firstName + ' ' + this.lastName
+            }
+        }
+    })
+
+
+
+</script>
+</body>
+</html>

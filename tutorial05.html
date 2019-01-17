@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<div id="app-1">
+    <h1 v-if="ok">YES</h1>
+    <h1 v-else>NO</h1>
+
+    <template v-if="ok">
+        <h1>Title</h1>
+        <p>Paragraph 1</p>
+        <p>Paragraph 2</p>
+    </template>
+
+
+    <template v-if="loginType === 'username'">
+        <label>사용자 이름</label>
+        <input placeholder="사용자 이름을 입력하세요" key="username-input">
+    </template>
+    <template v-else>
+        <label>이메일</label>
+        <input placeholder="이메일 주소를 입력하세요" key="email-input">
+    </template>
+    <br>
+    <button v-on:click="changeLoginType">로그인유형변경</button>
+</div>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<script>
+
+
+    var app1 = new Vue({
+        el:"#app-1",
+        data:{
+            ok : true,
+            loginType : "username"
+
+        },
+        methods:{
+            changeLoginType : function(){
+                this.loginType = this.loginType === "username" ? "email" : "username";
+            }
+        }
+    });
+
+
+</script>
+
+</body>
+</html>

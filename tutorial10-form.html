@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        fieldset{
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+
+<div id="app-1">
+    <fieldset>
+        <legend>app-1</legend>
+        <input v-model="message" placeholder="여기를 수정해보세요">
+        <p>메시지: {{ message }}</p>
+    </fieldset>
+    <br>
+
+
+    <fieldset>
+        <legend>여러줄</legend>
+        <span>여러 줄을 가지는 메시지:</span>
+        <p style="white-space: pre-line">{{ message1 }}</p>
+        <br>
+        <textarea style="width:500px;height:50px;"
+                  v-model="message1" placeholder="여러줄을 입력해보세요"></textarea>
+    </fieldset>
+
+    <br>
+
+    <fieldset>
+        <legend>체크박스</legend>
+        <input type="checkbox" id="checkbox" v-model="checked">
+        <label for="checkbox">{{ checked }}</label>
+    </fieldset>
+    <br>
+
+
+    <fieldset>
+        <legend>여러개의 체크 박스</legend>
+
+        <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+        <label for="jack">Jack</label>
+        <input type="checkbox" id="john" value="John" v-model="checkedNames">
+        <label for="john">John</label>
+        <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+        <label for="mike">Mike</label>
+        <br>
+        <span>체크한 이름: {{ checkedNames }}</span>
+    </fieldset>
+
+
+    <fieldset>
+        <legend>라디오</legend>
+        <input type="radio" id="one" value="One" v-model="picked">
+        <label for="one">One</label>
+        <br>
+        <input type="radio" id="two" value="Two" v-model="picked">
+        <label for="two">Two</label>
+        <br>
+        <span>선택: {{ picked }}</span>
+    </fieldset>
+
+    <fieldset>
+        <legend>셀렉트</legend>
+        <select v-model="selected">
+            <option disabled value="">Please select one</option>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+        <span>선택함: {{ selected }}</span>
+    </fieldset>
+
+    <fieldset>
+        <legend>바인드</legend>
+        <input type="radio" v-model="pick" v-bind:value="a">
+        a: {{a}}
+    </fieldset>
+
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+
+    var message = new Vue({
+        el:"#app-1",
+        data: {
+            message: '',
+            message1:'',
+            checked: false,
+            checkedNames : [],
+            picked: '',
+            selected: '',
+            pick: true,
+            a: false,
+        }
+    });
+
+
+</script>
+
+</body>
+</html>

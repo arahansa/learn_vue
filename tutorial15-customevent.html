@@ -1,0 +1,79 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+ㅅㄷㅇㄴㅅ
+<div id="test">
+    <base-checkbox v-model="lovingVue"></base-checkbox>
+
+    <base-input v-on:focus.native="onFocus"></base-input>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    Vue.component('base-checkbox', {
+        model: {
+            prop: 'checked',
+            event: 'change'
+        },
+        props: {
+            checked: Boolean
+        },
+        template: `
+    <input
+      type="checkbox"
+      v-bind:checked="checked"
+      v-on:change="$emit('change', $event.target.checked)"
+    >
+  `
+    });
+
+
+    Vue.component('base-input', {
+        inheritAttrs: false,
+        props: ['label', 'value'],
+        computed: {
+            inputListeners: function () {
+                var vm = this
+                // `Object.assign` merges objects together to form a new object
+                return Object.assign({},
+                    // We add all the listeners from the parent
+                    this.$listeners,
+                    // Then we can add custom listeners or override the
+                    // behavior of some listeners.
+                    {
+                        // This ensures that the component works with v-model
+                        input: function (event) {
+                            vm.$emit('input', event.target.value)
+                        }
+                    }
+                )
+            }
+        },
+        template: `
+    <label>
+      {{ label }}
+      <input
+        v-bind="$attrs"
+        v-bind:value="value"
+        v-on="inputListeners"
+      >
+    </label>
+  `
+    })
+
+
+    new Vue({
+        el: '#test',
+        data: {
+            lovingVue: ''
+        }
+    })
+
+</script>
+
+</body>
+</html>

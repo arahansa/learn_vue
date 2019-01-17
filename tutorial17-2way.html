@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+
+    <input type="text" v-model="tx.test" />
+
+    {{ tx.test}}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+
+
+
+    // 루트 인스턴스 생성
+    new Vue({
+        el : '#app',
+        data: {
+            tx: {
+                test: 'hj'
+            },
+            test : 'hi'
+        }
+    })
+
+</script>
+
+</body>
+</html>

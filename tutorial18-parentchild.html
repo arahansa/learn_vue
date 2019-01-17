@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="component-test">
+    <my-component :test="hi" @clicked="hi"></my-component>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+
+
+
+    // 등록
+    let Child = Vue.component('my-component', {
+        props: ['test'],
+        template: `<div>사용자 정의 컴포넌트 입니다!!! {{ test }}
+            <input type="text" v-model="aa"/>
+            <button @click="pass">버튼</button>
+            </div>`,
+        data () {
+            return {
+                aa: ''
+            }
+        },
+        methods: {
+            pass () {
+                console.log('button', this)
+                this.$emit('clicked', 'ppp')
+            }
+        }
+    })
+
+    // 루트 인스턴스 생성
+    new Vue({
+        el : '#component-test',
+        components: {
+            'my-component':Child
+        },
+        data: {
+            hi : 'hi'
+        },
+        methods: {
+            hi (param) {
+                console.log('param : ', param)
+            }
+        }
+    })
+
+</script>
+
+</body>
+</html>

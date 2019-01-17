@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<div id="example">
+    <child message="안녕하세요!"></child>
+    <br>
+    mycomponent : <my-component></my-component>
+
+    <hr>
+    동적 props
+
+    <hr>
+    test-component : <blog-post v-bind:title="post.title"></blog-post>
+
+    <hr>
+    todo item : <todo-item v-bind="todo"></todo-item>
+    <hr>
+    <base-input v-model="username"
+                class="username-input"
+                placeholder="Enter your username"
+    ></base-input>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+
+
+    Vue.component('child', {
+        // props 정의
+        props: ['message'],
+        // 데이터와 마찬가지로 prop은 템플릿 내부에서 사용할 수 있으며
+        // vm의 this.message로 사용할 수 있습니다.
+        template: '<span>test {{ message }}</span>'
+    });
+
+
+
+    let message ='hello';
+    Vue.component('my-component', {
+        template: '<span>{{ message }}</span>',
+        data: ()=>{return message;}
+    });
+
+
+    let post = {title: "post title "};
+
+    Vue.component('blog-post', {
+        props: ['post'],
+        // 데이터와 마찬가지로 prop은 템플릿 내부에서 사용할 수 있으며
+        // vm의 this.message로 사용할 수 있습니다.
+        template: '<span>블로그 포스트 {{ title }}</span>',
+        data : () => { return post}
+    });
+
+    let todo = { text: 'Learn vue', isComplete : false}
+    Vue.component('todo-item', {
+        props:['todo'],
+        template :' <span> 할일 : {{text}}, 완료여부 : {{isComplete}} </span>',
+        data : () => { return todo;}
+    });
+
+    Vue.component('base-input', {
+        inheritAttrs: false,
+        props: ['label', 'value'],
+        template: `
+    <label>
+      {{ label }}
+      <input
+        v-bind="$attrs"
+        v-bind:value="value"
+        v-on:input="$emit('input', $event.target.value)"
+      >
+    </label>
+  `
+    });
+
+
+
+    // 루트 인스턴스 생성
+    new Vue({
+        el: '#example',
+        data : {
+            username: ''
+        }
+    });
+</script>
+
+</body>
+</html>
